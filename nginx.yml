@@ -1,0 +1,20 @@
+x-logging: &logging
+  logging:
+    driver: json-file
+    options:
+      max-size: 100m
+      max-file: "3"
+      tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
+
+services:
+  nginx:
+    image: nginx:${NGINX_DOCKER_TAGi:-latest}
+    volumes:
+      - /var/www/html:/usr/share/nginx/html
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.${NGINX_HOST:-snapshots}.service=${NGINX_HOST:-snapshots}
+      - traefik.http.routers.${NGINX_HOST:-snapshots}.entrypoints=websecure
+      - traefik.http.routers.${NGINX_HOST:-snapshots}.rule=Host(`${NGINX_HOST:-snapshots}.${DOMAIN}`)
+      - traefik.http.routers.${NGINX_HOST:-snapshots}.tls.certresolver=letsencrypt
+      - traefik.http.services.${NGINX_HOST:-snapshots}.loadbalancer.server.port=80
