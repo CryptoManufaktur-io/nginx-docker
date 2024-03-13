@@ -11,6 +11,7 @@ services:
     image: nginx:${NGINX_DOCKER_TAGi:-latest}
     volumes:
       - /var/www/html:/usr/share/nginx/html
+      - ./snapshot.conf:/etc/nginx/conf.d/snapshot.conf
     labels:
       - traefik.enable=true
       - traefik.http.routers.${NGINX_HOST:-snapshots}.service=${NGINX_HOST:-snapshots}

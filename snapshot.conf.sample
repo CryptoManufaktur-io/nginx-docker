@@ -1,0 +1,20 @@
+server {
+        server_name snapshots.example.com;
+        server_tokens off;
+
+        root /usr/share/nginx/html;
+        index index.html;
+        autoindex on;
+
+        #nodehub
+        location ^~ /some-secret-api-key {
+                alias /usr/share/nginx/html;
+                index index.html;
+                autoindex on;
+        }
+
+        # root - deny all
+        location ^~ / {
+                deny all;
+        }
+}
