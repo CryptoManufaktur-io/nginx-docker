@@ -8,6 +8,7 @@ x-logging: &logging
 
 services:
   nginx:
+    restart: "unless-stopped"
     image: nginx:${NGINX_DOCKER_TAGi:-latest}
     volumes:
       - /var/www/html:/usr/share/nginx/html
