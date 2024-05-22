@@ -9,7 +9,7 @@ x-logging: &logging
 services:
   nginx:
     restart: "unless-stopped"
-    image: nginx:${NGINX_DOCKER_TAGi:-latest}
+    image: nginx:${NGINX_DOCKER_TAG:-latest}
     volumes:
       - /var/www/html:/usr/share/nginx/html
       - ./snapshot.conf:/etc/nginx/conf.d/snapshot.conf
